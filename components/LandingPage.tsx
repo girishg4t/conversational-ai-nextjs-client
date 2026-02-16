@@ -86,6 +86,7 @@ export default function LandingPage() {
           setAgoraData({
             ...responseData,
             agentId: agentData.agent_id,
+            agentUid: agentData.agent_uid,
           });
         }
       } catch (err) {

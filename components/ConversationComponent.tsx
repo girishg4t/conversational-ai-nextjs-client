@@ -283,13 +283,17 @@ export default function ConversationComponent({
         agent_id: agoraData.agentId!,
       };
 
-      const response = await fetch('/api/stop-conversation', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(stopRequest),
-      });
+      const response = await fetch("http://localhost:8000/v1/stop", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+    },
+        body: JSON.stringify({
+          channel_name:  agoraData.channel, 
+          uid: agoraData.uid,
+          agent_uid: agoraData.agentUid?.toString() || "unknown",
+        }),
+    });
 
       if (!response.ok) {
         throw new Error(`Failed to stop conversation: ${response.statusText}`);
@@ -398,7 +402,7 @@ export default function ConversationComponent({
     <div className="flex flex-col gap-6 p-4 h-full">
       {/* Connection Status - Updated to show connecting state */}
       <div className="absolute top-4 right-4 flex items-center gap-2">
-        {isAgentConnected ? (
+        {(
           <button
             onClick={handleStopConversation}
             disabled={isConnecting}
@@ -408,18 +412,6 @@ export default function ConversationComponent({
           >
             {isConnecting ? 'Disconnecting...' : 'Stop Agent'}
           </button>
-        ) : (
-          remoteUsers.length === 0 && (
-            <button
-              onClick={handleStartConversation}
-              disabled={isConnecting}
-              className="px-4 py-2 bg-blue-500/80 text-white rounded-full border border-blue-400/30 backdrop-blur-sm 
-              hover:bg-blue-600/90 transition-all shadow-lg hover:shadow-blue-500/20 
-              disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
-            >
-              {isConnecting ? 'Connecting with agent...' : 'Connect Agent'}
-            </button>
-          )
         )}
         <div
           className={`w-3 h-3 rounded-full ${
