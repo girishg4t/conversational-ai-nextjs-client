@@ -42,9 +42,9 @@ export default function ConversationComponent({
   const remoteUsers = useRemoteUsers();
   const [isEnabled, setIsEnabled] = useState(true);
   const { localMicrophoneTrack } = useLocalMicrophoneTrack(isEnabled);
-  const [isAgentConnected, setIsAgentConnected] = useState(false);
+  const [isAgentConnected, setIsAgentConnected] = useState(true);
   const [isConnecting, setIsConnecting] = useState(false);
-  const agentUID = process.env.NEXT_PUBLIC_AGENT_UID;
+  const agentUID = "1234";
   const [joinedUID, setJoinedUID] = useState<UID>(0);
   const [messageList, setMessageList] = useState<IMessageListItem[]>([]);
   const [currentInProgressMessage, setCurrentInProgressMessage] =
@@ -63,7 +63,7 @@ export default function ConversationComponent({
   // Join the channel using the useJoin hook
   const { isConnected: joinSuccess } = useJoin(
     {
-      appid: process.env.NEXT_PUBLIC_AGORA_APP_ID!,
+      appid: agoraData.appId,
       channel: agoraData.channel,
       token: agoraData.token,
       uid: parseInt(agoraData.uid),
@@ -213,16 +213,7 @@ export default function ConversationComponent({
       console.error('MessageEngine not initialized!');
     }
 
-    // Check if this is likely the agent but UID doesn't match expected
-    if (isAgentMessage && uidStr !== agentUID) {
-      console.warn(
-        `Possible agent UID mismatch. Message from: ${uidStr}, Expected: ${agentUID}`
-      );
-      // Update environment config if needed
-      console.info(
-        `You may need to set NEXT_PUBLIC_AGENT_UID=${uidStr} in your .env file`
-      );
-    }
+    // Check if this is likely the agent but UID doesn't match expecte
   });
 
   // Update actualUID when join is successful
@@ -317,38 +308,38 @@ export default function ConversationComponent({
     if (!agoraData.agentId) return;
     setIsConnecting(true);
 
-    try {
-      const startRequest: ClientStartRequest = {
-        requester_id: joinedUID?.toString(),
-        channel_name: agoraData.channel,
-        input_modalities: ['text'],
-        output_modalities: ['text', 'audio'],
-      };
+    // try {
+    //   const startRequest: ClientStartRequest = {
+    //     requester_id: joinedUID?.toString(),
+    //     channel_name: agoraData.channel,
+    //     input_modalities: ['text'],
+    //     output_modalities: ['text', 'audio'],
+    //   };
 
-      const response = await fetch('/api/invite-agent', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(startRequest),
-      });
+    //   const response = await fetch('/api/invite-agent', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(startRequest),
+    //   });
 
-      if (!response.ok) {
-        throw new Error(`Failed to start conversation: ${response.statusText}`);
-      }
+    //   if (!response.ok) {
+    //     throw new Error(`Failed to start conversation: ${response.statusText}`);
+    //   }
 
-      // Update agent ID when new agent is connected
-      const data = await response.json();
-      if (data.agent_id) {
-        agoraData.agentId = data.agent_id;
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        console.warn('Error starting conversation:', error.message);
-      }
+    //   // Update agent ID when new agent is connected
+    //   const data = await response.json();
+    //   if (data.agent_id) {
+    //     agoraData.agentId = data.agent_id;
+    //   }
+    // } catch (error) {
+    //   if (error instanceof Error) {
+    //     console.warn('Error starting conversation:', error.message);
+    //   }
       // Reset connecting state if there's an error
-      setIsConnecting(false);
-    }
+      // setIsConnecting(false);
+  // }
   };
 
   // Toggle microphone functionality

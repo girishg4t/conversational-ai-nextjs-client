@@ -49,7 +49,7 @@ export default function LandingPage() {
     try {
       // First, get the Agora token
       console.log('Fetching Agora token...');
-      const agoraResponse = await fetch('/api/generate-agora-token');
+      const agoraResponse = await fetch('http://localhost:8000/v1/token');
       const responseData = await agoraResponse.json();
       console.log('Agora API response:', responseData);
 
@@ -68,13 +68,16 @@ export default function LandingPage() {
       };
 
       try {
-        const response = await fetch('/api/invite-agent', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(startRequest),
-        });
+        const response = await fetch("http://localhost:8000/v1/start", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+    },
+        body: JSON.stringify({
+          channel_name:  responseData.channel,
+          uid: responseData.uid,
+        }),
+    });
 
         if (!response.ok) {
           setAgentJoinError(true);

@@ -1,4 +1,5 @@
 export interface AgoraTokenData {
+  appId: string;
   token: string;
   uid: string;
   channel: string;
