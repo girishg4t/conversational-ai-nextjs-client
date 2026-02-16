@@ -44,7 +44,7 @@ export default function ConversationComponent({
   const { localMicrophoneTrack } = useLocalMicrophoneTrack(isEnabled);
   const [isAgentConnected, setIsAgentConnected] = useState(true);
   const [isConnecting, setIsConnecting] = useState(false);
-  const agentUID = "1234";
+  const agentUID = agoraData.agentUid;
   const [joinedUID, setJoinedUID] = useState<UID>(0);
   const [messageList, setMessageList] = useState<IMessageListItem[]>([]);
   const [currentInProgressMessage, setCurrentInProgressMessage] =
