@@ -49,7 +49,7 @@ export default function LandingPage() {
     try {
       // First, get the Agora token
       console.log('Fetching Agora token...');
-      const agoraResponse = await fetch('http://localhost:8000/v1/token');
+      const agoraResponse = await fetch('http://52.36.108.30:8001/v1/token');
       const responseData = await agoraResponse.json();
       console.log('Agora API response:', responseData);
 
@@ -68,7 +68,7 @@ export default function LandingPage() {
       };
 
       try {
-        const response = await fetch("http://localhost:8000/v1/start", {
+        const response = await fetch("http://52.36.108.30:8001/v1/start", {
             method: "POST",
             headers: {
             "Content-Type": "application/json",

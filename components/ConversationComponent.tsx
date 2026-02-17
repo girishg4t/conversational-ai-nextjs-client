@@ -283,7 +283,7 @@ export default function ConversationComponent({
         agent_id: agoraData.agentId!,
       };
 
-      const response = await fetch("http://localhost:8000/v1/stop", {
+      const response = await fetch("http://52.36.108.30:8001/v1/stop", {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
