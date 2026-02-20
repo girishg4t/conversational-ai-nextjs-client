@@ -283,7 +283,7 @@ export default function ConversationComponent({
         agent_id: agoraData.agentId!,
       };
 
-      const response = await fetch("https://demo.rteappbuilder.com/v1/stop", {
+      const response = await fetch("https://demo.rteappbuilder.com/connectors/v1/stop", {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
