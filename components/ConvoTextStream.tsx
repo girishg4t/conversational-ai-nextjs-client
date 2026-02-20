@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { IMessageListItem, EMessageStatus } from '@/lib/message';
+import ReactMarkdown from 'react-markdown';
 
 interface ConvoTextStreamProps {
   messageList: IMessageListItem[];
@@ -235,7 +236,7 @@ export default function ConvoTextStream({
                           'animate-pulse'
                       )}
                     >
-                      {message.text}
+                      <ReactMarkdown>{message.text}</ReactMarkdown>
                     </div>
                   </div>
                 </div>

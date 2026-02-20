@@ -283,7 +283,7 @@ export default function ConversationComponent({
         agent_id: agoraData.agentId!,
       };
 
-      const response = await fetch("http://52.36.108.30:8001/v1/stop", {
+      const response = await fetch("https://demo.rteappbuilder.com/v1/stop", {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
@@ -292,6 +292,7 @@ export default function ConversationComponent({
           channel_name:  agoraData.channel, 
           uid: agoraData.uid,
           agent_uid: agoraData.agentUid?.toString() || "unknown",
+          tenant_id: "123498ef-8b4c-4043-98aa-6c878926e4a2",
         }),
     });
 
