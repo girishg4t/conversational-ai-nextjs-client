@@ -49,7 +49,9 @@ export default function LandingPage() {
     try {
       // First, get the Agora token
       console.log('Fetching Agora token...');
-      const agoraResponse = await fetch('https://demo.rteappbuilder.com/connectors/v1/token');
+      const agoraResponse = await fetch('https://demo.rteappbuilder.com/connectors/v1/token', {
+          credentials: "include" 
+      });
       const responseData = await agoraResponse.json();
       console.log('Agora API response:', responseData);
 
@@ -72,7 +74,8 @@ export default function LandingPage() {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
-    },
+        },
+        credentials: "include" ,
         body: JSON.stringify({
           channel_name:  responseData.channel,
           uid: responseData.uid,

@@ -288,6 +288,7 @@ export default function ConversationComponent({
             headers: {
             "Content-Type": "application/json",
     },
+     credentials: "include" ,
         body: JSON.stringify({
           channel_name:  agoraData.channel, 
           uid: agoraData.uid,
