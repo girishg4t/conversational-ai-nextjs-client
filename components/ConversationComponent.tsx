@@ -27,6 +27,8 @@ import {
   EMessageEngineMode,
 } from '@/lib/message';
 
+const API_BASE_URL = process.env.BACKEND_URL || "http://localhost:8000/connectors/v1";
+
 // Export EMessageStatus for use in other components
 export { EMessageStatus } from '@/lib/message';
 
@@ -283,7 +285,7 @@ export default function ConversationComponent({
         agent_id: agoraData.agentId!,
       };
 
-      const response = await fetch("https://demo.rteappbuilder.com/connectors/v1/stop", {
+      const response = await fetch(`${API_BASE_URL}/stop`, {
             method: "POST",
             headers: {
             "Content-Type": "application/json",

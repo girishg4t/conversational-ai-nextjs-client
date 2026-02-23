@@ -9,6 +9,8 @@ import type {
   AgentResponse,
 } from '../types/conversation';
 
+const API_BASE_URL = process.env.BACKEND_URL || "http://localhost:8000/connectors/v1";
+
 // Dynamically import the ConversationComponent with ssr disabled
 const ConversationComponent = dynamic(() => import('./ConversationComponent'), {
   ssr: false,
@@ -49,7 +51,7 @@ export default function LandingPage() {
     try {
       // First, get the Agora token
       console.log('Fetching Agora token...');
-      const agoraResponse = await fetch('https://demo.rteappbuilder.com/connectors/v1/token', {
+      const agoraResponse = await fetch(`${API_BASE_URL}/token`, {
           credentials: "include" 
       });
       const responseData = await agoraResponse.json();
@@ -70,7 +72,7 @@ export default function LandingPage() {
       };
 
       try {
-        const response = await fetch("https://demo.rteappbuilder.com/connectors/v1/start", {
+        const response = await fetch(`${API_BASE_URL}/start`, {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
