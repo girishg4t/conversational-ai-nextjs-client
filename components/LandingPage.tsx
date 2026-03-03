@@ -9,7 +9,7 @@ import type {
   AgentResponse,
 } from '../types/conversation';
 
-const API_BASE_URL = process.env.BACKEND_URL || "http://localhost:8000/connectors/v1";
+const API_BASE_URL = process.env.BACKEND_URL || "https://connectors-dev.rteappbuilder.com/connectors/v1";
 
 // Dynamically import the ConversationComponent with ssr disabled
 const ConversationComponent = dynamic(() => import('./ConversationComponent'), {

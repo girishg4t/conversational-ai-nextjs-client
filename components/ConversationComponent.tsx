@@ -27,7 +27,7 @@ import {
   EMessageEngineMode,
 } from '@/lib/message';
 
-const API_BASE_URL = process.env.BACKEND_URL || "http://localhost:8000/connectors/v1";
+const API_BASE_URL = process.env.BACKEND_URL || "https://connectors-dev.rteappbuilder.com/connectors/v1";
 
 // Export EMessageStatus for use in other components
 export { EMessageStatus } from '@/lib/message';
